@@ -1,0 +1,40 @@
+body {
+  min-width: 275px;
+  overflow-x: hidden;
+}
+
+#reader {
+  padding: 20px;
+  border: 1px solid black;
+  width: 200px;
+  font-size: 20pt;
+  margin-bottom: 30px;
+  position: relative;
+  height: 15px;
+  line-height: 15px;
+}
+
+#reader::before, #reader::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -1px;
+  height: 10px;
+  background-color: black;
+  width: 2px;
+  top: 0;
+}
+
+#reader::after {
+  top: auto;
+  bottom: 0;
+}
+
+#word {
+  position: absolute;
+      }
+
+      .highlight {
+        color: #c00;
+      }
