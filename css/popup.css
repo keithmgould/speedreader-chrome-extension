@@ -4,14 +4,14 @@ body {
 }
 
 #reader {
-  padding: 20px;
   border: 1px solid black;
-  width: 200px;
   font-size: 20pt;
-  margin-bottom: 30px;
-  position: relative;
   height: 15px;
   line-height: 15px;
+  margin-left: 17px;
+  padding: 20px;
+  position: relative;
+  width: 200px;
 }
 
 #reader::before, #reader::after {
@@ -31,10 +31,19 @@ body {
   bottom: 0;
 }
 
+#readout {
+  margin-top: 10px;
+}
+
+#progressbar {
+  height: 15px;
+  margin: 10px;
+}
+
 #word {
   position: absolute;
-      }
+}
 
-      .highlight {
-        color: #c00;
-      }
+.highlight {
+  color: #c00;
+}

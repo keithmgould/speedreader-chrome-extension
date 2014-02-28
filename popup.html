@@ -3,15 +3,19 @@
   <head>
     <title>Speed Reader</title>
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.4.custom.min.css">
     <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="js/popup.js"></script>
   </head>
   <body>
     <div id="reader">
       <div id="word"></div>
     </div>
-    <input type="number" value="500" id="wpm">
-    <button id="control">Start</button>
-    <button id="restart">Restart</button>
+    <div id="progressbar"></div>
+    <div id="slider"></div>
+    <div id="readout">
+      WPM: <span id="wpm">0</span>
+    <div>
   </body>
 </html>

@@ -1,8 +1,6 @@
-var paused = false;
 var currentWord = 0;
 var words = [];
 var myTimer;
-var response;
 
 function highlightWord(word){
   var center = Math.floor(word.length / 2);
@@ -30,38 +28,28 @@ function positionWord(){
 
 function displayWords(){
   clearTimeout(myTimer);
-  var delay = 60000 / parseInt($("#wpm").val(), 10);
-  var displayNextWord = function(){
-    if(paused){return;}
-    word = words[currentWord++];
-    hasPause = /^\(|[,\.\)]$/.test(word);
-    $("#word").html(word);
-    positionWord();
-
-    if (currentWord !== words.length){
-      myTimer = setTimeout(displayNextWord, delay * (hasPause ? 2 : 1));
-    }
-  };
-
   displayNextWord();
 }
 
-function controlLogic(){
-  if( $("#control").html() == "Start") {
-    fetchHighlightedContent();
-  } else if ($("#control").html() == "Continue" ) {
-    continueWords();
-  } else {
-    paused = true;
-    $("#control").html("Continue");
+function displayNextWord(){
+  var wpm = $("#wpm").data("wpm");
+  if ( wpm == 0) { return; }
+  if ( wpm > 0 && currentWord < words.length) {
+    word = words[currentWord++];
+  } else if(wpm < 0 && currentWord > 0) {
+    word = words[currentWord--];
   }
-}
+  hasPause = /^\(|[,\.\)]$/.test(word);
+  $("#word").html(word);
+  positionWord();
 
-function continueWords(){
-  $("#control").html("Pause");
-  paused = false;
-  displayWords();
-}
+  if ((currentWord == words.length && wpm < 0) || (currentWord == 0 && wpm > 0) || (currentWord > 0 && currentWord < words.length))
+  {
+    var delay = 60000 / Math.abs($("#wpm").data("wpm"));
+    myTimer = setTimeout(displayNextWord, delay * (hasPause ? 2 : 1));
+  }
+  $("#progressbar").progressbar( "value", (currentWord / words.length) * 100 );
+};
 
 function fetchHighlightedContent(){
   chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT},
@@ -69,18 +57,26 @@ function fetchHighlightedContent(){
     chrome.tabs.sendMessage(tab[0].id, {method: "getSelection"},
     function(response){
       words = response.data.split(/\s+/).map(highlightWord);
-      continueWords();
+      displayWords();
     });
   });
 }
 
 $(document).ready(function() {
-  $("#control").on('click', function(){
-    controlLogic();
-  });
-
-  $("#restart").on('click', function(){
-    currentWord = 0;
-    continueWords();
+  $("#progressbar").progressbar({value: 0});
+  $( "#slider" ).slider({
+    value:0,
+    min: -1000,
+    max: 1000,
+    step: 50,
+    slide: function( event, ui ) {
+      $("#wpm").html( ui.value );
+      $("#wpm").data("wpm", ui.value);
+      if(words.length == 0){
+        fetchHighlightedContent();
+      } else {
+        displayWords();
+      }
+    }
   });
 });
