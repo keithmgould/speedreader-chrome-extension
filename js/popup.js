@@ -52,11 +52,11 @@ function displayNextWord(){
 };
 
 function fetchHighlightedContent(){
-  chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT},
-  function(tab) {
-    chrome.tabs.sendMessage(tab[0].id, {method: "getSelection"},
-    function(response){
+  chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT}, function(tab) {
+    chrome.tabs.sendMessage(tab[0].id, {method: "getSelection"}, function(response){
+      if(response.data == "") { return; }
       words = response.data.split(/\s+/).map(highlightWord);
+      $("#wordCount").html(words.length);
       displayWords();
     });
   });
@@ -65,8 +65,6 @@ function fetchHighlightedContent(){
 function repositionWpmReadout(wpm){
   if(wpm == 0){
     margin = 136;
-  } else if (wpm < 0) {
-    margin = ( (1000 + wpm) / 2000 ) * 273;
   } else {
     margin = ( (1000 + wpm) / 2000 ) * 273;
   }
