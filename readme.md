@@ -7,6 +7,9 @@ Most (80%) of your reading time is used to physically move your eyeballs.  This 
 2. Click the eye icon, which appears to the right of the omnibox.
 3. Slide the slider to the right to speed up.  Left to reverse.
 
+## Screenshot
+![Alt text](https://s3.amazonaws.com/keithgould/speedreader/srsc.png "Optional title")
+
 ## Learn More
 
 * [Spritz is working on a mobile app, and their blog explains a lot of the science](http://www.spritzinc.com/blog/)
