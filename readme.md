@@ -2,11 +2,10 @@
 Most (80%) of your reading time is used to physically move your eyeballs.  This Chrome extension takes your block of selected text and presents it to you one word at a time.  This eliminates eye movement, drastically speeding up your reading time.
 
 ## How To Use
-0. Install the Extension
+0. [Install the Extension.] (https://chrome.google.com/webstore/detail/speed-reader/lpjokkihnnennblbchdhmpkmapbdkinb)
 1. Select a block of text you want to read quickly.
-2. Click the eye icon, which appears to the right of the omnibox
-3. Optionally change the speed.
-4. Click Start.
+2. Click the eye icon, which appears to the right of the omnibox.
+3. Slide the slider to the right to speed up.  Left to reverse.
 
 ## Learn More
 
