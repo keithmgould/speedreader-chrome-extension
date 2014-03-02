@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $(":not(iframe) body").append(' \
+  $("body").append(' \
     <div id="speedReaderModal" class="reveal-modal"> \
       <div id="speedReaderBox"> \
         <div id="speedReaderWord"></div> \
