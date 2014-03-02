@@ -13,10 +13,9 @@ $(document).ready(function(){
 
   chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action == 'open_dialog_box') {
-      selected = window.getSelection().toString();
-      words = selected.split(/\s+/).map(highlightWord);
+      selected_text = window.getSelection().toString();
       $("#speedReaderModal").dialog("open");
-      displayWords();
+      SpeedReader.displayWords(selected_text);
     }
   });
 });
