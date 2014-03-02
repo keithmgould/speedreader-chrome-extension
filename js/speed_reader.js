@@ -8,16 +8,16 @@ function highlightWord(word){
   var result = [];
   return letters.map(function(letter, idx){
     if (idx === center){
-      return '<span class="highlight">' + letter + '</span>';
+      return '<span id="speedReaderHighlight">' + letter + '</span>';
     }
     return letter;
   }).join('');
 }
 
 function positionWord(){
-  wordEl = $("#word")[0];
-  highlight = $(".highlight")[0];
-  readerEl = $('#reader')[0];
+  wordEl = $("#speedReaderWord")[0];
+  highlight = $("#speedReaderHighlight")[0];
+  readerEl = $('#speedReaderBox')[0];
 
   var centerOffsetX = (highlight.offsetWidth / 2) + highlight.offsetLeft;
   var centerOffsetY = (highlight.offsetHeight / 2) + highlight.offsetTop;
@@ -32,35 +32,18 @@ function displayWords(){
 }
 
 function displayNextWord(){
-  var wpm = $("#wpm").data("wpm");
-  if ( wpm == 0) { return; }
+  wpm = 100;
   if ( wpm > 0 && currentWord < words.length) {
     word = words[currentWord++];
-  } else if(wpm < 0 && currentWord > 0) {
-    word = words[currentWord--];
   }
   hasPause = /^\(|[,\.\)]$/.test(word);
-  $("#word").html(word);
+  $("#speedReaderWord").html(word);
   positionWord();
 
   if ((currentWord == words.length && wpm < 0) || (currentWord == 0 && wpm > 0) || (currentWord > 0 && currentWord < words.length))
   {
-    var delay = 60000 / Math.abs($("#wpm").data("wpm"));
+    // var delay = 60000 / Math.abs($("#wpm").data("wpm"));
+    var delay = 60000 / wpm;
     myTimer = setTimeout(displayNextWord, delay * (hasPause ? 2 : 1));
   }
 };
-
-function fetchHighlightedContent(){
-  chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT}, function(tab) {
-    chrome.tabs.sendMessage(tab[0].id, {method: "getSelection"}, function(response){
-      if(response.data == "") { return; }
-      words = response.data.split(/\s+/).map(highlightWord);
-      $("#wordCount").html(words.length);
-      displayWords();
-    });
-  });
-}
-
-$(document).ready(function() {
-
-});

@@ -1,9 +1,4 @@
-body {
-  min-width: 600px;
-  overflow-x: hidden;
-}
-
-#reader {
+#speedReaderBox {
   border: 1px solid black;
   font-size: 20pt;
   height: 15px;
@@ -14,7 +9,7 @@ body {
   width: 200px;
 }
 
-#reader::before, #reader::after {
+#speedReaderBox::before, #speedReaderBox::after {
   content: "";
   display: block;
   position: absolute;
@@ -26,20 +21,20 @@ body {
   top: 0;
 }
 
-#reader::after {
+#speedReaderBox::after {
   top: auto;
   bottom: 0;
 }
 
-#word {
+#speedReaderWord {
   position: absolute;
 }
 
-.highlight {
+#speedReaderHighlight {
   color: #c00;
 }
 
-.panel {
+#speedReader .panel {
   vertical-align: bottom;
   display: inline-block;
   background-color: pink;
@@ -47,10 +42,10 @@ body {
   width: 150px;
 }
 
-.panel div {
+#speedReader .panel div {
   display: inline-block;
 }
 
-#speedPanel span {
+#speedReader #speedPanel span {
   display: block;
 }
