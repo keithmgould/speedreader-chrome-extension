@@ -4,15 +4,32 @@
   "description": "Highlight text and read it through a speed-reader widget",
   "version": "0.1",
   "browser_action": {
-    "default_icon" : "eye.png",
-    "default_popup": "popup.html"
+    "default_icon": "images/eye16.png",
+    "default_title": "Yay Speed Reader"
+  },
+  "icons": {
+    "128": "images/eye128.png",
+    "48": "images/eye48.png",
+    "16": "images/eye16.png"
+  },
+  "background": {
+    "scripts": ["js/background.js"]
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["js/selection.js"],
-      "run_at": "document_start",
+      "css": ["css/jquery-ui-1.10.4.custom.min.css"],
+      "js": [
+        "js/jquery-2.1.0.min.js",
+        "js/jquery-ui-1.10.4.custom.min.js",
+        "js/content_script.js"
+      ],
+      "run_at": "document_end",
       "all_frames": true
     }
+  ],
+  "permissions": ["notifications"],
+  "web_accessible_resources": [
+    "css/images/*.png"
   ]
 }

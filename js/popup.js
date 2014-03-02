@@ -48,7 +48,6 @@ function displayNextWord(){
     var delay = 60000 / Math.abs($("#wpm").data("wpm"));
     myTimer = setTimeout(displayNextWord, delay * (hasPause ? 2 : 1));
   }
-  $("#progressbar").progressbar( "value", (currentWord / words.length) * 100 );
 };
 
 function fetchHighlightedContent(){
@@ -62,32 +61,6 @@ function fetchHighlightedContent(){
   });
 }
 
-function repositionWpmReadout(wpm){
-  if(wpm == 0){
-    margin = 136;
-  } else {
-    margin = ( (1000 + wpm) / 2000 ) * 273;
-  }
-  margin = margin - 30;
-  $("#readout").css("margin-left", margin + "px");
-}
-
 $(document).ready(function() {
-  $("#progressbar").progressbar({value: 0});
-  $("#slider").slider({
-    value:0,
-    min: -1000,
-    max: 1000,
-    step: 50,
-    slide: function( event, ui ) {
-      $("#wpm").html( ui.value );
-      $("#wpm").data("wpm", ui.value);
-      repositionWpmReadout(ui.value);
-      if(words.length == 0){
-        fetchHighlightedContent();
-      } else {
-        displayWords();
-      }
-    }
-  });
+
 });

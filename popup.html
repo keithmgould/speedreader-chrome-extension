@@ -12,10 +12,22 @@
     <div id="reader">
       <div id="word"></div>
     </div>
-    <div id="progressbar"></div>
-    <div id="slider"></div>
-    <div id="readout">
-      WPM: <span id="wpm">0</span>
+    <div id="speedPanel" class="panel">
+      <button id="slowDown"><<</button>
+      <div>
+        <span id="readout">300</span>
+        <span id="units">wpm</span>
+      </div>
+      <button id="speedUp">>></button>
+    </div>
+
+    <div id="playPanel" class="panel">
+      <button></button>
+    </div>
+
+    <div id="backPanel" class="panel">
+      <button>Restart</button>
+      <button>Back 2 Sentences</button>
     </div>
   </body>
 </html>
