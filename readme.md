@@ -8,7 +8,7 @@ Most (80%) of your reading time is used to physically move your eyeballs.  This 
 3. Adjust speed if necessary (your speed pref is automatically saved), and hit Start.
 
 ## Screenshot
-![Alt text](https://s3.amazonaws.com/keithgould/speedreader/srsc.png "Optional title")
+![Alt text](https://s3.amazonaws.com/keithgould/speedreader/srsc-0.2.png "Optional title")
 
 ## Learn More
 
