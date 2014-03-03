@@ -2,6 +2,7 @@ var SpeedReader = {
   currentWord : 0,
   words : [],
   myTimer : null,
+  wpm : 100,
 
 
   // Each word has a red letter towards the center of the
@@ -46,7 +47,6 @@ var SpeedReader = {
   // This method displays the next word and sets
   // the timer for prep for the following word.
   displayNextWord : function(){
-    var wpm = 100;
     if (currentWord < words.length) {
       word = words[currentWord++];
     }
@@ -57,10 +57,24 @@ var SpeedReader = {
     if (currentWord < words.length)
     {
       // var delay = 60000 / Math.abs($("#wpm").data("wpm"));
-      var delay = 60000 / wpm;
+      var delay = 60000 / this.wpm;
       that = this;
       myTimer = setTimeout(function() { that.displayNextWord(); }, delay * (hasPause ? 2 : 1));
     }
+  },
+
+  slowDown : function(){
+    console.log("slowing down");
+    this.wpm = this.wpm - 50;
+    if(this.wpm < 0) {this.wpm = 0;}
+    return this.wpm;
+  },
+
+  speedUp : function(){
+    console.log("speeding up");
+    this.wpm = this.wpm + 50;
+    if(this.wpm > 1000){ this.wpm = 1000;}
+    return this.wpm;
   }
 
 };

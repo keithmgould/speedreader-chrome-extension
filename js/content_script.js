@@ -4,11 +4,26 @@ $(document).ready(function(){
       <div id="speedReaderBox"> \
         <div id="speedReaderWord"></div> \
       </div> \
+      <div id="speedReaderSpeedPanel"> \
+        <button id="speedReaderSlower"><<</button> \
+        <span id="speedReaderWpm">100</span> \
+        <button id="speedReaderFaster">>></button> \
+      </div> \
     </div> \
   ');
 
   $("#speedReaderModal").dialog({
       autoOpen: false
+  });
+
+  $("#speedReaderSlower").on("click", function(){
+    var new_wpm = SpeedReader.slowDown();
+    $("#speedReaderWpm").html(new_wpm);
+  });
+
+  $("#speedReaderFaster").on("click", function(){
+    var new_wpm = SpeedReader.speedUp();
+    $("#speedReaderWpm").html(new_wpm);
   });
 
   chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
