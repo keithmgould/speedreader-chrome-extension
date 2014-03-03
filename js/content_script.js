@@ -8,6 +8,7 @@ $(document).ready(function(){
         <button id="speedReaderSlower"><<</button> \
         <span id="speedReaderWpm">100</span> \
         <button id="speedReaderFaster">>></button> \
+        <button id="speedReaderControl">Start</button> \
       </div> \
     </div> \
   ');
@@ -16,6 +17,7 @@ $(document).ready(function(){
       autoOpen: false
   });
 
+  // Bindings
   $("#speedReaderSlower").on("click", function(){
     var new_wpm = SpeedReader.slowDown();
     $("#speedReaderWpm").html(new_wpm);
@@ -25,6 +27,24 @@ $(document).ready(function(){
     var new_wpm = SpeedReader.speedUp();
     $("#speedReaderWpm").html(new_wpm);
   });
+
+  $("#speedReaderControl").on("click", function(){
+    switch($(this).html())
+    {
+    case "Start":
+      $(this).html("Pause");
+      SpeedReader.resume();
+      break;
+    case "Pause":
+      $(this).html("Continue");
+      SpeedReader.pause();
+      break;
+    case "Continue":
+      $(this).html("Pause");
+      SpeedReader.resume();
+      break;
+    }
+  })
 
   chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action == 'open_dialog_box') {

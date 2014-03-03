@@ -3,6 +3,7 @@ var SpeedReader = {
   words : [],
   myTimer : null,
   wpm : 100,
+  paused : true,
 
 
   // Each word has a red letter towards the center of the
@@ -38,7 +39,6 @@ var SpeedReader = {
   // Each time the Speed Reader icon is clicked,
   // this methid is called.
   displayWords : function(selected_text){
-    // clearTimeout(myTimer);
     words = selected_text.split(/\s+/).map(this.highlightWord);
     currentWord = 0;
     this.displayNextWord();
@@ -47,6 +47,7 @@ var SpeedReader = {
   // This method displays the next word and sets
   // the timer for prep for the following word.
   displayNextWord : function(){
+    if (this.paused) {return;}
     if (currentWord < words.length) {
       word = words[currentWord++];
     }
@@ -64,17 +65,18 @@ var SpeedReader = {
   },
 
   slowDown : function(){
-    console.log("slowing down");
     this.wpm = this.wpm - 50;
     if(this.wpm < 0) {this.wpm = 0;}
     return this.wpm;
   },
 
   speedUp : function(){
-    console.log("speeding up");
     this.wpm = this.wpm + 50;
     if(this.wpm > 1000){ this.wpm = 1000;}
     return this.wpm;
-  }
+  },
+
+  pause : function(){ this.paused = true; },
+  resume : function(){ this.paused = false; this.displayNextWord(); }
 
 };
