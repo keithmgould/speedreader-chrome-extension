@@ -10,6 +10,9 @@ $(document).ready(function(){
         <button id="speedReaderFaster">>></button> \
         <button id="speedReaderControl">Start</button> \
       </div> \
+      <div id="speedReaderDashboard"> \
+        Time Remaining: <span id="speedReaderTimeRemaining"></span> \
+      </div> \
     </div> \
   ');
 

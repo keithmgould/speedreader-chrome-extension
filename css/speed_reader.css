@@ -35,9 +35,15 @@
 }
 
 #speedReaderSpeedPanel {
-  margin: 5px 0 0 15px;
+  margin: 5px 0 5px 15px;
 }
 
 #speedReaderSpeedPanel span {
   display: inline-block;
+}
+
+#speedReaderDashboard {
+  border-top: 1px solid black;
+  font-size: 12px;
+  padding-top: 5px;
 }

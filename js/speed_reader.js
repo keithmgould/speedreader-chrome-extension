@@ -43,33 +43,42 @@ var SpeedReader = {
     $("#speedReaderWord").html("");
     this.paused = true;
     that = this;
+    currentWord = 0;
     chrome.storage.sync.get("wpm", function(result){
       that.wpm = ('wpm' in result) ? result.wpm : 250;
       $("#speedReaderWpm").html(that.wpm);
+      words = selected_text.split(/\s+/).map(that.highlightWord);
+      that.updateTimeRemaining();
+      that.displayNextWord();
     });
-    words = selected_text.split(/\s+/).map(this.highlightWord);
-    currentWord = 0;
-    this.displayNextWord();
   },
 
-  // This method displays the next word and sets
+  // Displays the next word and sets
   // the timer for prep for the following word.
   displayNextWord : function(){
     if (this.paused) {return;}
     if (currentWord < words.length) {
       word = words[currentWord++];
     }
+    this.updateTimeRemaining();
     var hasPause = /^\(|[,\.\)]$/.test(word);
     $("#speedReaderWord").html(word);
     this.positionWord();
 
     if (currentWord < words.length)
     {
-      // var delay = 60000 / Math.abs($("#wpm").data("wpm"));
       var delay = 60000 / this.wpm;
       that = this;
       myTimer = setTimeout(function() { that.displayNextWord(); }, delay * (hasPause ? 2 : 1));
     }
+  },
+
+  updateTimeRemaining : function(){
+    var words_left = words.length - currentWord;
+    var minutes_left = Math.floor(words_left / this.wpm);
+    var seconds_left = Math.round(60 * ((words_left - (minutes_left * this.wpm)) / this.wpm));
+    if(seconds_left < 10){ seconds_left = "0" + seconds_left; }
+    $("#speedReaderTimeRemaining").html(minutes_left + ":" + seconds_left + " remaining");
   },
 
   changeSpeed : function(change){
@@ -77,10 +86,11 @@ var SpeedReader = {
     if(this.wpm < 0) {this.wpm = 0;}
     if(this.wpm > 1000){ this.wpm = 1000;}
     chrome.storage.sync.set({'wpm': this.wpm});
+    this.updateTimeRemaining();
     return this.wpm;
   },
 
-  pause : function(){ this.paused = true; },
+  pause  : function(){ this.paused = true; },
   resume : function(){ this.paused = false; this.displayNextWord(); }
 
 };
