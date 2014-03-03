@@ -39,6 +39,14 @@ var SpeedReader = {
   // Each time the Speed Reader icon is clicked,
   // this methid is called.
   displayWords : function(selected_text){
+    $("#speedReaderControl").html("Start");
+    $("#speedReaderWord").html("");
+    this.paused = true;
+    that = this;
+    chrome.storage.sync.get("wpm", function(result){
+      that.wpm = ('wpm' in result) ? result.wpm : 250;
+      $("#speedReaderWpm").html(that.wpm);
+    });
     words = selected_text.split(/\s+/).map(this.highlightWord);
     currentWord = 0;
     this.displayNextWord();
@@ -64,15 +72,11 @@ var SpeedReader = {
     }
   },
 
-  slowDown : function(){
-    this.wpm = this.wpm - 50;
+  changeSpeed : function(change){
+    this.wpm = this.wpm + change;
     if(this.wpm < 0) {this.wpm = 0;}
-    return this.wpm;
-  },
-
-  speedUp : function(){
-    this.wpm = this.wpm + 50;
     if(this.wpm > 1000){ this.wpm = 1000;}
+    chrome.storage.sync.set({'wpm': this.wpm});
     return this.wpm;
   },
 

@@ -14,17 +14,21 @@ $(document).ready(function(){
   ');
 
   $("#speedReaderModal").dialog({
-      autoOpen: false
+      autoOpen : false,
+      resizable : false,
+      close : function(event, ui){
+        SpeedReader.pause();
+      }
   });
 
   // Bindings
   $("#speedReaderSlower").on("click", function(){
-    var new_wpm = SpeedReader.slowDown();
+    var new_wpm = SpeedReader.changeSpeed(-50);
     $("#speedReaderWpm").html(new_wpm);
   });
 
   $("#speedReaderFaster").on("click", function(){
-    var new_wpm = SpeedReader.speedUp();
+    var new_wpm = SpeedReader.changeSpeed(50);
     $("#speedReaderWpm").html(new_wpm);
   });
 

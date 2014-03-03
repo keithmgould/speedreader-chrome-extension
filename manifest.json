@@ -28,7 +28,7 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["notifications"],
+  "permissions": ["notifications", "storage"],
   "web_accessible_resources": [
     "css/images/*.png"
   ]
