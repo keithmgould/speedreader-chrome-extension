@@ -55,11 +55,19 @@ $(document).ready(function(){
 
   chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action == 'open_dialog_box') {
-      selected_text = window.getSelection().toString();
+      var selection = window.getSelection();
+      selected_text = selection.toString();
       if (selected_text.length == 0)
       {
         alert("Please select the text you would like to speed read before hitting the Speed Reader icon.");
       }else{
+        $( "#speedReaderModal" ).dialog({
+          position: {
+            my: 'center',
+            at: 'center',
+            of: selection.getRangeAt(0).startContainer.parentNode
+          }
+        });
         $("#speedReaderModal").dialog("open");
         SpeedReader.displayWords(selected_text);
       }
