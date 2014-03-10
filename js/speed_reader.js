@@ -84,7 +84,6 @@ var SpeedReader = {
   changeSpeed : function(change){
     this.wpm = this.wpm + change;
     if(this.wpm < 0) {this.wpm = 0;}
-    if(this.wpm > 1000){ this.wpm = 1000;}
     chrome.storage.sync.set({'wpm': this.wpm});
     this.updateTimeRemaining();
     return this.wpm;
