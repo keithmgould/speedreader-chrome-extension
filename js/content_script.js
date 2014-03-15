@@ -20,6 +20,7 @@ $(document).ready(function(){
       autoOpen : false,
       resizable : false,
       close : function(event, ui){
+        $('#speedReaderBackground').remove();
         SpeedReader.pause();
       }
   });
@@ -61,6 +62,7 @@ $(document).ready(function(){
       {
         alert("Please select the text you would like to speed read before hitting the Speed Reader icon.");
       }else{
+        $('body').prepend('<div id="speedReaderBackground"></div>');
         $( "#speedReaderModal" ).dialog({
           position: {
             my: 'center',
